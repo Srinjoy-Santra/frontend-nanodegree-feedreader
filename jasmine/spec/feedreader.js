@@ -31,7 +31,7 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        function allFeedsURLcheck(a){
+        function allFeedsURLCheck(a){
             it('feed '+(a+1)+' has a URL', function(){
                 expect(allFeeds[a].url).toBeDefined();
                 expect(allFeeds[a].url.length).toBeGreaterThan(0);
@@ -39,12 +39,21 @@ $(function() {
         }
         
         for(let i=0;i<allFeeds.length;i++)
-            allFeedsURLcheck(i);
+            allFeedsURLCheck(i);
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        function allFeedsNameCheck(a){
+            it('feed '+(a+1)+' has a name', function(){
+                expect(allFeeds[a].name).toBeDefined();
+                expect(allFeeds[a].name.length).toBeGreaterThan(0);
+            });
+        }
+        
+        for(let i=0;i<allFeeds.length;i++)
+            allFeedsNameCheck(i);
     });
 
 
@@ -55,26 +64,62 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-
-         /* TODO: Write a test that ensures the menu changes
+    describe('The Menu', function() {
+        
+        it('hidden by default', function() {
+            expect(document.body.classList).toContain('menu-hidden');
+        });
+        /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+        it('toggles when clicked', function() {
+            $('.menu-icon-link').click();
+            expect(document.body.classList).not.toContain('menu-hidden');
+            $('.menu-icon-link').click();
+            expect(document.body.classList).toContain('menu-hidden');
+        });
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+       
+     describe('Initial Entries', function() {
 
-        /* TODO: Write a test that ensures when the loadFeed
+         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+        it('feed container contains 1 or more entries', function() {
+            var contents = document.querySelectorAll('.feed .entry').length;
+            expect(contents).toBeGreaterThan(0);
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
-
+    describe("New Feed Selection",function(){
+        
+        let oldFeed,newFeed;
+        
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        beforeEach(function(done){
+           loadFeed(0, function(){
+               oldFeed = document.querySelector('.feed');
+               console.log(oldFeed.innerHTML);
+           }); 
+        });
+        
+    });
+        
 }());
