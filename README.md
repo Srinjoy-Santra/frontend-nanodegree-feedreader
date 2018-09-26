@@ -2,6 +2,13 @@
 
 In this project you are given a web-based application that reads RSS feeds. The original developer of this application clearly saw the value in testing, they've already included [Jasmine](http://jasmine.github.io/) and even started writing their first test suite! Unfortunately, they decided to move on to start their own company and we're now left with an application with an incomplete test suite. That's where you come in.
 
+## How to run the application?
+
+- Download this repository
+- Open the index.html file in the browser.
+- Jasmine will automatically execute the test suites that have been configured and their results will show at the bottom of the app. 
+- To access or modify the test suite, navigate to jasmine/spec/feedreader.js and open with a text editor.
+
 
 ## Why this Project?
 
